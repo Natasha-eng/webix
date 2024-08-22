@@ -1,0 +1,84 @@
+/* toollbar styles */
+
+.header {
+  background-color: #475466;
+}
+
+.header.webix_toolbar .logo.webix_el_label .webix_el_box {
+  color: white;
+}
+
+.profile-icon.webix_secondary .webix_button {
+  background-color: transparent;
+  color: white;
+}
+
+.profile-icon.webix_secondary .webix_button .webix_icon_btn {
+  color: white;
+}
+
+/* sidebar styles */
+
+.side-bar.webix_view {
+  background-color: #f4f5f9;
+}
+
+.sidebar-item.webix_list_item {
+  border-bottom: none;
+  font-weight: 500;
+}
+
+.sidebar-item.webix_list_item:hover {
+  background-color: #e2e2e3;
+}
+
+.connect-status.webix_view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f5f9;
+  border-top: none;
+  color: #13d513;
+}
+
+.connect-status.webix_view .webix_template {
+  height: auto;
+}
+
+/* form styles*/
+
+.webix_view.form_name_wrapper {
+  height: 60px;
+}
+
+.webix_view.form_name_wrapper .bottom {
+  position: relative;
+  height: 50px;
+  border-bottom: 1px solid #dadee0;
+}
+
+.webix_view.form_name_wrapper .webix_template .form-name {
+  background-color: white;
+  position: absolute;
+  bottom: -22px;
+  left: 15px;
+  z-index: 1;
+  padding: 0 10px 0 10px;
+  font-weight: 400;
+}
+
+.form-button.webix_secondary button.webix_button {
+  background-color: #1ca1c1;
+  color: white;
+}
+
+.form-button.webix_secondary button.webix_button:hover {
+  background-color: #6bd0e9;
+}
+
+/* footer styles */
+
+.footer.webix_view div {
+  display: flex;
+  justify-content: center;
+}
