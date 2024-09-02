@@ -1,0 +1,29 @@
+/* sidebar styles */
+
+.side-bar.webix_view {
+  background-color: #f4f5f9;
+}
+
+.sidebar-item.webix_list_item {
+  border-bottom: none;
+  font-weight: 500;
+}
+
+.sidebar-item.webix_list_item:hover {
+  background-color: #e2e2e3;
+}
+
+.connect-status.webix_view {
+  display: flex;
+  justify-content: center;
+  background-color: #f4f5f9;
+  border-top: none;
+  color: #13d513;
+}
+
+/* footer styles */
+
+.footer.webix_view div {
+  display: flex;
+  justify-content: center;
+}
