@@ -1,9 +1,5 @@
 /* toollbar styles */
 
-.header {
-  background-color: #475466;
-}
-
 .header.webix_toolbar .logo.webix_el_label .webix_el_box {
   color: white;
 }
@@ -35,14 +31,9 @@
 .connect-status.webix_view {
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: #f4f5f9;
   border-top: none;
   color: #13d513;
-}
-
-.connect-status.webix_view .webix_template {
-  height: auto;
 }
 
 /* form styles*/
