@@ -4,15 +4,6 @@
   color: white;
 }
 
-.profile-icon.webix_secondary .webix_button {
-  background-color: transparent;
-  color: white;
-}
-
-.profile-icon.webix_secondary .webix_button .webix_icon_btn {
-  color: white;
-}
-
 /* sidebar styles */
 
 .side-bar.webix_view {
@@ -34,37 +25,6 @@
   background-color: #f4f5f9;
   border-top: none;
   color: #13d513;
-}
-
-/* form styles*/
-
-.webix_view.form_name_wrapper {
-  height: 60px;
-}
-
-.webix_view.form_name_wrapper .bottom {
-  position: relative;
-  height: 50px;
-  border-bottom: 1px solid #dadee0;
-}
-
-.webix_view.form_name_wrapper .webix_template .form-name {
-  background-color: white;
-  position: absolute;
-  bottom: -22px;
-  left: 15px;
-  z-index: 1;
-  padding: 0 10px 0 10px;
-  font-weight: 400;
-}
-
-.form-button.webix_secondary button.webix_button {
-  background-color: #1ca1c1;
-  color: white;
-}
-
-.form-button.webix_secondary button.webix_button:hover {
-  background-color: #6bd0e9;
 }
 
 /* footer styles */
