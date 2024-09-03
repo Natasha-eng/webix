@@ -1,3 +1,24 @@
+function showPopup() {
+  const node = $$("profile-button").getNode();
+  const isVisible = $$("mywindow").isVisible();
+  if (isVisible) {
+    $$("mywindow").hide();
+  } else {
+    $$("mywindow").show(node);
+
+  }
+}
+
+const profileList = {
+  view: "list",
+  width: 250,
+  height: 72,
+  select: true,
+  scroll: false,
+  data: [{ id: 1, value: "Settings" },
+  { id: 2, value: "Log out" },
+  ]
+}
 
 const head = {
   view: "toolbar",
@@ -9,11 +30,15 @@ const head = {
     { view: "label", label: "My App", css: "logo" },
     {
       view: "button",
+      id: "profile-button",
       label: "Profile",
       type: "icon",
       icon: "wxi-user",
       width: 150,
       css: "profile-icon",
+      on: {
+        "onItemClick": showPopup
+      }
     },
   ],
 };
@@ -41,6 +66,7 @@ const connectStatus = {
 
 const filmsTable = {
   view: "datatable",
+  id: 'films-table',
   autoConfig: true,
   data: small_film_set,
 };
@@ -50,10 +76,33 @@ const formButtons = [
     view: "button",
     value: "Add new",
     css: "webix_primary",
+    click: function () {
+      var values = $$("films-form").getValues();
+      const isValid = $$("films-form").validate();
+
+      if (isValid) {
+        $$("films-table").add(values);
+        webix.message("The film is successfully added");
+      }
+    }
   },
   {
     view: "button",
     value: "Clear",
+    click: function () {
+      webix.confirm({
+        text: "Are you sure you want to clear the form?"
+      }).then(
+        function () {
+          webix.message("Confirmed");
+          $$("films-form").clear();
+          $$("films-form").clearValidation()
+        },
+        function () {
+          webix.message("Rejected");
+        }
+      );
+    }
   },
 ];
 
@@ -65,29 +114,40 @@ const formHeader = {
 
 const filmsForm = {
   view: "form",
+  id: "films-form",
   css: "films_form",
   width: 300,
   elements: [
     formHeader,
-    { view: "text", label: "Title", name: "title" },
+    { view: "text", label: "Title", name: "title", invalidMessage: "Title must be filled in" },
     {
       view: "text",
       label: "Year",
       name: "year",
+      invalidMessage: "Year should be between 1970 and current "
     },
 
-    { view: "text", label: "Rating", name: "rating" },
-    { view: "text", label: "Votes", name: "votes" },
+    { view: "text", label: "Rating", name: "rating", invalidMessage: "Votes must be less than 100000" },
+    { view: "text", label: "Votes", name: "votes", invalidMessage: "Rating cannot be empty or 0" },
     {
       cols: formButtons,
     },
 
     {},
   ],
+  rules: {
+    title: webix.rules.isNotEmpty,
+    year: function (value) {
+      return 1970 < value < 2024;
+    },
+    rating: function (value) {
+      return webix.rules.isNotEmpty && value > 0;
+    },
+    votes: function (value) {
+      return value < 100000;
+    },
+  }
 };
-
-
-
 
 const formBody = {
   rows: [filmsForm],

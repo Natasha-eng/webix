@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script
-      type="text/javascript"
-      src="http://cdn.webix.com/edge/webix.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="http://cdn.webix.com/edge/webix.css"
-    />
 
-    <!-- data -->
-    <script type="text/javascript" src="testdata.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+<head>
+  <script type="text/javascript" src="http://cdn.webix.com/edge/webix.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://cdn.webix.com/edge/webix.css" />
 
-    <!-- styles -->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-  </head>
-  <body>
-    <script type="text/javascript" charset="utf-8">
-      webix.ready(function () {
-        webix.ui({
-          id: "app",
-          rows: [head, main, foot],
-        });
+  <!-- data -->
+  <script type="text/javascript" src="testdata.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+
+  <!-- styles -->
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+  <script type="text/javascript" charset="utf-8">
+    webix.ready(function () {
+      webix.ui({
+        id: "app",
+        rows: [head, main, foot],
       });
-    </script>
-  </body>
+
+      webix.ui({
+        view: "window",
+        id: "mywindow",
+        width: 300,
+        head: false,
+        move: true,
+        body: profileList
+      });
+
+
+    });
+
+
+  </script>
+</body>
+
 </html>
