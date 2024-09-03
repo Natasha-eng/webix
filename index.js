@@ -1,10 +1,19 @@
+//widget's IDs
+const profileButtonId = "profile-button";
+const windowId = "mywindow";
+const toolbarId = "myToolbar";
+const filmsTableId = "films-table";
+const filmsFormId = "films-form";
+
+
 function showPopup() {
-  const node = $$("profile-button").getNode();
-  const isVisible = $$("mywindow").isVisible();
+  const node = $$(profileButtonId).getNode();
+  const win = $$(windowId);
+  const isVisible = win.isVisible();
   if (isVisible) {
-    $$("mywindow").hide();
+    win.hide();
   } else {
-    $$("mywindow").show(node);
+    win.show(node);
 
   }
 }
@@ -12,25 +21,26 @@ function showPopup() {
 const profileList = {
   view: "list",
   width: 250,
-  height: 72,
+  autoheight: true,
   select: true,
   scroll: false,
-  data: [{ id: 1, value: "Settings" },
-  { id: 2, value: "Log out" },
+  data: [
+    { id: 1, value: "Settings" },
+    { id: 2, value: "Log out" },
   ]
 }
 
 const head = {
   view: "toolbar",
   css: "webix_dark",
-  id: "myToolbar",
+  id: toolbarId,
   height: 50,
   padding: 10,
   cols: [
     { view: "label", label: "My App", css: "logo" },
     {
       view: "button",
-      id: "profile-button",
+      id: profileButtonId,
       label: "Profile",
       type: "icon",
       icon: "wxi-user",
@@ -66,7 +76,7 @@ const connectStatus = {
 
 const filmsTable = {
   view: "datatable",
-  id: 'films-table',
+  id: filmsTableId,
   autoConfig: true,
   data: small_film_set,
 };
@@ -77,11 +87,14 @@ const formButtons = [
     value: "Add new",
     css: "webix_primary",
     click: function () {
-      var values = $$("films-form").getValues();
-      const isValid = $$("films-form").validate();
+
+      const filmsForm = $$(filmsFormId);
+
+      const isValid = filmsForm.validate();
 
       if (isValid) {
-        $$("films-table").add(values);
+        const values = filmsForm.getValues();
+        $$(filmsTableId).add(values);
         webix.message("The film is successfully added");
       }
     }
@@ -94,9 +107,10 @@ const formButtons = [
         text: "Are you sure you want to clear the form?"
       }).then(
         function () {
+          const formId = $$(filmsFormId);
           webix.message("Confirmed");
-          $$("films-form").clear();
-          $$("films-form").clearValidation()
+          formId.clear();
+          formId.clearValidation()
         },
         function () {
           webix.message("Rejected");
@@ -114,7 +128,7 @@ const formHeader = {
 
 const filmsForm = {
   view: "form",
-  id: "films-form",
+  id: filmsFormId,
   css: "films_form",
   width: 300,
   elements: [
