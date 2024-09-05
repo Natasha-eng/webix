@@ -7,14 +7,17 @@
 
   <!-- data -->
   <script type="text/javascript" src="testdata.js"></script>
-  <script type="text/javascript" src="index.js"></script>
+  <script type="module" src="index.js"></script>
+  <script type="module" src="dashboard.js"></script>
 
   <!-- styles -->
   <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
-  <script type="text/javascript" charset="utf-8">
+  <script type="module" charset="utf-8">
+    import { head, main, foot, profileList, windowId } from "./index.js"
+
     webix.ready(function () {
       webix.ui({
         id: "app",

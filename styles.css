@@ -4,12 +4,12 @@
   background-color: #f4f5f9;
 }
 
-.sidebar-item.webix_list_item {
+.side-bar .webix_list_item {
   border-bottom: none;
   font-weight: 500;
 }
 
-.sidebar-item.webix_list_item:hover {
+.side-bar .webix_list_item:hover {
   background-color: #e2e2e3;
 }
 
@@ -41,11 +41,6 @@
   background: #eaeaec;
 }
 
-/* users list styles */
-.user-list-style:hover {
-  background: #eaeaec;
-}
-
 /* footer styles */
 
 .footer.webix_view div {
@@ -54,5 +49,5 @@
 }
 
 .common {
-  background: #ccccf5;
+  background: #f0f0f0;
 }
