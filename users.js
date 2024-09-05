@@ -1,14 +1,13 @@
+import widgetsIds from "./data_variables.js";
+
 //users
 
-const usersInputId = "users-input";
-const usersListId = "users-list";
-
 function sortNameAsc() {
-    $$(usersListId).sort("#name#");
+    $$(widgetsIds.usersListId).sort("#name#");
 }
 
 function sortNameDesc() {
-    $$(usersListId).sort("#name#", "desc");
+    $$(widgetsIds.usersListId).sort("#name#", "desc");
 }
 
 function deleteUser(ev, id) {
@@ -20,11 +19,11 @@ function deleteUser(ev, id) {
 const usersFilterAndSort = {
     cols: [
         {
-            view: "text", id: usersInputId,
+            view: "text", id: widgetsIds.usersInputId,
             on: {
                 onTimedKeyPress: function () {
                     let value = this.getValue().toLowerCase();
-                    $$(usersListId).filter(function (obj) {
+                    $$(widgetsIds.usersListId).filter(function (obj) {
                         return obj.name.toLowerCase().indexOf(value) !== -1;
                     })
                 }
@@ -43,7 +42,7 @@ const usersFilterAndSort = {
 const usersList = {
     view: "list",
     height: 200,
-    id: usersListId,
+    id: widgetsIds.usersListId,
     template: "<div class='space user-list-style'>#name# from #country# <span class='deleteUser webix_icon wxi-close' ></span></div>",
     select: true,
     url: "./data/users.js",
@@ -55,10 +54,9 @@ const usersList = {
         this.data.each(function (obj) {
             count++;
             if (count < 6) {
-                $$(usersListId).addCss(obj.id, "common")
+                $$(widgetsIds.usersListId).addCss(obj.id, "common")
             }
         });
-
     }
 }
 
@@ -74,14 +72,15 @@ const userschart = {
     },
     label: "#age#",
     legend: {
-        values: [{ text: "Age" }],
+        values: [{ text: "Age", color: "transparent" }],
         valign: "bottom",
         align: "center",
+        layout: "x"
     },
     url: "./data/users.js"
 }
 
 
-const users = { id: "Users", template: "Users View", rows: [usersFilterAndSort, usersList, userschart] }
+const users = { id: widgetsIds.users, template: "Users View", rows: [usersFilterAndSort, usersList, userschart] }
 
 export default users;

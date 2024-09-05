@@ -1,8 +1,10 @@
+import widgetsIds from "./data_variables.js";
+
 // products
 
 const products = {
     view: "treetable",
-    id: "Products",
+    id: widgetsIds.products,
     columns: [
         { id: "id", header: "", css: { "text-align": "right" } },
         {

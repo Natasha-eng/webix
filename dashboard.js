@@ -1,11 +1,10 @@
-const filmsTableId = "films-table";
-const filmsFormId = "films-form";
+import widgetsIds from "./data_variables.js";
 
 function save() {
-    const form = $$(filmsFormId);
+    const form = $$(widgetsIds.filmsFormId);
     const isValid = form.validate();
 
-    const films_table = $$(filmsTableId);
+    const films_table = $$(widgetsIds.filmsTableId);
 
     const item_data = form.getValues();
 
@@ -15,8 +14,8 @@ function save() {
             webix.message("The film is successfully updated");
         } else {
 
-            let last_id = films_table.serialize(true).length;
-            let newValues = { ...item_data, rank: ++last_id }
+            let filmsQty = films_table.serialize(true).length;
+            let newValues = { ...item_data, rank: ++filmsQty }
             films_table.add(newValues);
             webix.message("The film is successfully added");
 
@@ -26,15 +25,15 @@ function save() {
 }
 
 function setFormValues(id) {
-    const values = $$(filmsTableId).getItem(id);
-    $$(filmsFormId).setValues(values);
+    const values = $$(widgetsIds.filmsTableId).getItem(id);
+    $$(widgetsIds.filmsFormId).setValues(values);
 }
 
 //films table
 
 const filmsTable = {
     view: "datatable",
-    id: filmsTableId,
+    id: widgetsIds.filmsTableId,
     select: true,
     scrollX: false,
     columns: [
@@ -65,8 +64,7 @@ const filmsTable = {
     },
     on: {
         onAfterSelect: setFormValues
-    }
-    ,
+    },
     url: "./data/data.js",
     hover: "hover-row"
 };
@@ -76,7 +74,7 @@ const filmsTable = {
 const formButtons = [
     {
         view: "button",
-        value: "Add new",
+        value: "Save",
         css: "webix_primary",
         click: save
     },
@@ -88,7 +86,7 @@ const formButtons = [
                 text: "Are you sure you want to clear the form?"
             }).then(
                 function () {
-                    const formId = $$(filmsFormId);
+                    const formId = $$(widgetsIds.filmsFormId);
                     webix.message("Confirmed");
                     formId.clear();
                     formId.clearValidation()
@@ -109,7 +107,7 @@ const formHeader = {
 
 const filmsForm = {
     view: "form",
-    id: filmsFormId,
+    id: widgetsIds.filmsFormId,
     css: "films_form",
     width: 300,
     elements: [
@@ -150,5 +148,5 @@ const formBody = {
     rows: [filmsForm],
 };
 
-const dashboard = { id: "Dashboard", cols: [filmsTable, formBody] }
+const dashboard = { id: widgetsIds.dashboard, cols: [filmsTable, formBody] }
 export default dashboard;

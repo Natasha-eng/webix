@@ -1,16 +1,28 @@
 import dashboard from "./dashboard.js"
 import users from "./users.js"
 import products from "./products.js"
+import widgetsIds from "./data_variables.js";
 
-//widget's IDs
-const profileButtonId = "profile-button";
-const windowId = "mywindow";
-const toolbarId = "myToolbar";
+webix.ready(function () {
+  webix.ui({
+    id: widgetsIds.app,
+    rows: [head, main, foot],
+  });
 
+  webix.ui({
+    view: "window",
+    id: widgetsIds.windowId,
+    width: 300,
+    head: false,
+    body: profileList
+  });
+
+
+});
 
 function showPopup() {
-  const node = $$(profileButtonId).getNode();
-  const win = $$(windowId);
+  const node = $$(widgetsIds.profileButtonId).getNode();
+  const win = $$(widgetsIds.windowId);
   const isVisible = win.isVisible();
   if (isVisible) {
     win.hide();
@@ -36,14 +48,14 @@ const profileList = {
 const head = {
   view: "toolbar",
   css: "webix_dark",
-  id: toolbarId,
+  id: widgetsIds.toolbarId,
   height: 50,
   padding: 10,
   cols: [
     { view: "label", label: "My App", css: "logo" },
     {
       view: "button",
-      id: profileButtonId,
+      id: widgetsIds.profileButtonId,
       label: "Profile",
       type: "icon",
       icon: "wxi-user",
@@ -58,9 +70,9 @@ const head = {
 
 //sidebar
 const sideBarData = [
-  { id: "Dashboard", value: "Dashboard" },
-  { id: "Users", value: "Users" },
-  { id: "Products", value: "Products" },
+  { id: widgetsIds.dashboard, value: widgetsIds.dashboard },
+  { id: widgetsIds.users, value: widgetsIds.users },
+  { id: widgetsIds.products, value: widgetsIds.products },
 
 ];
 
@@ -116,4 +128,4 @@ const foot = {
   ],
 };
 
-export { head, main, foot, profileList, windowId };
+export { head, main, foot, profileList };
