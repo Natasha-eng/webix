@@ -15,7 +15,7 @@ const products = {
     ],
     select: "cell",
     scrollX: false,
-    url: "ю/data/products.js",
+    url: "./data/products.js",
     ready: function () {
         this.openAll();
     },
