@@ -21,9 +21,38 @@
   color: #13d513;
 }
 
+/* table styles */
+
+.rank {
+  background: #F4F5F9;
+  border-right: 1px solid #DADEE0;
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+}
+
+.space span {
+  align-self: center;
+}
+
+.hover-row {
+  background: #eaeaec;
+}
+
+/* users list styles */
+.user-list-style:hover {
+  background: #eaeaec;
+}
+
 /* footer styles */
 
 .footer.webix_view div {
   display: flex;
   justify-content: center;
+}
+
+.common {
+  background: #ccccf5;
 }
