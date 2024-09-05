@@ -1,24 +1,7 @@
-import dashboard from "./dashboard.js"
-import users from "./users.js"
-import products from "./products.js"
+import dashboard from "./dashboard.js";
+import users from "./users.js";
+import products from "./products.js";
 import widgetsIds from "./data_variables.js";
-
-webix.ready(function () {
-  webix.ui({
-    id: widgetsIds.app,
-    rows: [head, main, foot],
-  });
-
-  webix.ui({
-    view: "window",
-    id: widgetsIds.windowId,
-    width: 300,
-    head: false,
-    body: profileList
-  });
-
-
-});
 
 function showPopup() {
   const node = $$(widgetsIds.profileButtonId).getNode();
@@ -28,7 +11,6 @@ function showPopup() {
     win.hide();
   } else {
     win.show(node);
-
   }
 }
 
@@ -42,8 +24,8 @@ const profileList = {
   data: [
     { id: 1, value: "Settings" },
     { id: 2, value: "Log out" },
-  ]
-}
+  ],
+};
 
 const head = {
   view: "toolbar",
@@ -62,8 +44,8 @@ const head = {
       width: 150,
       css: "profile-icon",
       on: {
-        "onItemClick": showPopup
-      }
+        onItemClick: showPopup,
+      },
     },
   ],
 };
@@ -73,7 +55,6 @@ const sideBarData = [
   { id: widgetsIds.dashboard, value: widgetsIds.dashboard },
   { id: widgetsIds.users, value: widgetsIds.users },
   { id: widgetsIds.products, value: widgetsIds.products },
-
 ];
 
 const sideBar = {
@@ -85,10 +66,9 @@ const sideBar = {
   on: {
     onAfterSelect: function (id) {
       $$(id).show();
-    }
+    },
   },
   data: sideBarData,
-
 };
 
 const connectStatus = {
@@ -98,12 +78,8 @@ const connectStatus = {
 };
 
 const switchData = {
-  cells: [
-    dashboard,
-    users,
-    products,
-  ],
-  animate: false
+  cells: [dashboard, users, products],
+  animate: false,
 };
 
 const main = {
@@ -128,4 +104,17 @@ const foot = {
   ],
 };
 
-export { head, main, foot, profileList };
+webix.ready(function () {
+  webix.ui({
+    id: widgetsIds.app,
+    rows: [head, main, foot],
+  });
+
+  webix.ui({
+    view: "window",
+    id: widgetsIds.windowId,
+    width: 300,
+    head: false,
+    body: profileList,
+  });
+});
