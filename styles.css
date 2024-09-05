@@ -4,12 +4,12 @@
   background-color: #f4f5f9;
 }
 
-.sidebar-item.webix_list_item {
+.side-bar .webix_list_item {
   border-bottom: none;
   font-weight: 500;
 }
 
-.sidebar-item.webix_list_item:hover {
+.side-bar .webix_list_item:hover {
   background-color: #e2e2e3;
 }
 
@@ -21,9 +21,33 @@
   color: #13d513;
 }
 
+/* table styles */
+
+.rank {
+  background: #F4F5F9;
+  border-right: 1px solid #DADEE0;
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+}
+
+.space span {
+  align-self: center;
+}
+
+.hover-row {
+  background: #eaeaec;
+}
+
 /* footer styles */
 
 .footer.webix_view div {
   display: flex;
   justify-content: center;
+}
+
+.common {
+  background: #f0f0f0;
 }

@@ -6,32 +6,14 @@
   <link rel="stylesheet" type="text/css" href="http://cdn.webix.com/edge/webix.css" />
 
   <!-- data -->
-  <script type="text/javascript" src="testdata.js"></script>
-  <script type="text/javascript" src="index.js"></script>
+  <script type="module" src="index.js"></script>
 
   <!-- styles -->
   <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
-  <script type="text/javascript" charset="utf-8">
-    webix.ready(function () {
-      webix.ui({
-        id: "app",
-        rows: [head, main, foot],
-      });
-
-      webix.ui({
-        view: "window",
-        id: windowId,
-        width: 300,
-        head: false,
-        body: profileList
-      });
-
-
-    });
-
+  <script type="module" charset="utf-8">
 
   </script>
 </body>
