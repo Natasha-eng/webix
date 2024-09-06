@@ -1,76 +1,120 @@
 import widgetsIds from "./data_variables.js";
 
+
+
+function bindFormData() {
+    $$(widgetsIds.filmsFormId).bind($$(widgetsIds.filmsTableId));
+}
+
+// function bindFormData() {
+//     $$(widgetsIds.filmsFormId).bind($$(widgetsIds.filmsTableId));
+// }
+function filterYear() {
+    $$(widgetsIds.filmsTableId).registerFilter(
+        $$("selector"),
+        {
+            columnId: "start", compare: function (value, filter, item) {
+                let year = value;
+                console.log('value', value)
+                console.log('filter', filter)
+                console.log('item', item)
+                if (filter == "old") return year > 2000;
+                else if (filter == "modern") return year >= 2000 && year >= 2015;
+                else if (filter == "new") return year > 2015;
+                else return year > 1600
+            }
+        },
+        {
+            getValue: function (node) {
+                return node.getValue();
+            },
+            setValue: function (node, value) {
+                node.setValue(value);
+            }
+        }
+    );
+}
+
+
 function save() {
     const form = $$(widgetsIds.filmsFormId);
     const isValid = form.validate();
-
     const films_table = $$(widgetsIds.filmsTableId);
-
-    const item_data = form.getValues();
+    const form_data = form.getValues();
 
     if (isValid) {
-        if (item_data.id) {
-            films_table.updateItem(item_data.id, item_data);
+        if (form_data.id) {
+            form.save();
             webix.message("The film is successfully updated");
         } else {
-
             let filmsQty = films_table.serialize(true).length;
-            let newValues = { ...item_data, rank: ++filmsQty }
-            films_table.add(newValues);
-            webix.message("The film is successfully added");
+            let newValues = { ...form_data, rank: ++filmsQty };
 
+            form.save(newValues);
+            webix.message("The film is successfully added");
         }
     }
-
 }
 
-function setFormValues(id) {
-    const values = $$(widgetsIds.filmsTableId).getItem(id);
-    $$(widgetsIds.filmsFormId).setValues(values);
+const tabButtons = {
+    borderless: true, view: "tabbar", id: "tabbar", value: "listView", multiview: true, options: [
+        { value: 'All', id: 'All' },
+        { value: 'Old', id: 'Old' },
+        { value: 'Modern', id: 'Modern' },
+        { value: 'New', id: 'New' }
+    ]
 }
+
 
 //films table
-
 const filmsTable = {
     view: "datatable",
     id: widgetsIds.filmsTableId,
     select: true,
     scrollX: false,
+    fillspace: true,
     columns: [
         { id: "rank", header: "", width: 50, template: "#rank#", css: "rank", sort: "text" },
         { id: "title", header: ["Film title", { content: "textFilter" }], template: "#title#", fillspace: true, sort: "text" },
         {
-            id: "year", header: ["Released", { content: "textFilter" }], template: "#year#",
-            width: 100,
-            sort: "text"
+            id: "categoryId", header: ["Category", { content: "selectFilter" }], editable: true, width: 100, sort: "int", collection: "./data/categories.js"
         },
+        // {
+        //     id: "year", header: ["Released", { content: "textFilter" }], template: "#year#",
+        //     width: 100,
+        //     sort: "text"
+        // },
         {
             id: "votes", header: ["Votes", { content: "textFilter" }], template: function (obj) {
 
                 return "<div class='space'>" + obj.votes + "<span class='removeBtn webix_icon wxi-trash'></span></div>";
-
             },
             width: 100,
             sort: "text"
         },
-
-
+        { id: "start", header: "Year", width: 100, template: "#year#" },
     ],
+    scheme: {
+        $init: function (obj) {
+            const randomId = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+            obj.categoryId = randomId;
+        }
+    },
     onClick: {
         removeBtn: function (ev, id) {
             this.remove(id);
             return false;
         }
     },
-    on: {
-        onAfterSelect: setFormValues
-    },
+    
+    ready: bindFormData,
+    ready: filterYear,
+   
     url: "./data/data.js",
-    hover: "hover-row"
+    hover: "hover-row",
 };
 
 //form
-
 const formButtons = [
     {
         view: "button",
@@ -116,7 +160,7 @@ const filmsForm = {
         {
             view: "text",
             label: "Year",
-            name: "year",
+            name: "start",
             invalidMessage: "Year should be between 1970 and current "
         },
 
@@ -141,12 +185,36 @@ const filmsForm = {
             return value < 100000;
         },
     }
-
 };
 
 const formBody = {
     rows: [filmsForm],
 };
 
-const dashboard = { id: widgetsIds.dashboard, cols: [filmsTable, formBody] }
+const dashboard = {
+    id: widgetsIds.dashboard,
+
+    rows: [
+        {
+            view: "segmented",
+            id: "selector",
+            value: "all",
+            options: [
+                { "id": "all", "value": "All" },
+                { "id": "old", "value": "Old" },
+                { "id": "modern", "value": "Modern" },
+                { "id": "new", "value": "New" }
+            ],
+            on: {
+                onChange: function () {
+                    $$(widgetsIds.filmsTableId).filterByAll();
+                }
+            }
+
+        },
+        {
+            cols: [filmsTable, formBody]
+        }
+    ]
+}
 export default dashboard;

@@ -41,6 +41,11 @@
   background: #eaeaec;
 }
 
+/* users */
+.yellow{
+  background-color:lightyellow;
+}
+
 /* footer styles */
 
 .footer.webix_view div {
