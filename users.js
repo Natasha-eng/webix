@@ -22,7 +22,11 @@ function addNewUser() {
     return;
   }
   const userArr = inputValue.split(",");
-  userList.add({ name: userArr[0], age: userArr[1], country: userArr[2] });
+  userList.add({
+    name: userArr[0],
+    age: userArr[1],
+    country: userArr[2],
+  });
 }
 
 const usersFilterAndSort = {
@@ -30,6 +34,7 @@ const usersFilterAndSort = {
     {
       view: "text",
       id: widgetsIds.usersInputId,
+      placeholder: "Name Surname, age, country",
       on: {
         onTimedKeyPress: function () {
           let value = this.getValue().toLowerCase();
