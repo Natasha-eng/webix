@@ -14,19 +14,25 @@ function deleteUser(ev, id) {
   this.remove(id);
   return false;
 }
+
+function randomItem(max, min) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 function addNewUser() {
   const userList = $$(widgetsIds.usersListId);
-  const inputValue = $$(widgetsIds.usersInputId).getValue();
-  if (!inputValue) {
-    webix.message("Fill in the filed.");
-    return;
+  const randomAge = randomItem(100, 1);
+  const randomCountryId = randomItem(12, 1);
+
+  const randomCountry = userList.getItem(randomCountryId).country;
+
+  const newUser = {
+    name: "John Smith",
+    age: randomAge,
+    country: randomCountry,
   }
-  const userArr = inputValue.split(",");
-  userList.add({
-    name: userArr[0],
-    age: userArr[1],
-    country: userArr[2],
-  });
+
+  userList.add(newUser);
 }
 
 const usersFilterAndSort = {
@@ -89,7 +95,7 @@ const usersList = {
       this.group({
         by: "country",
         map: {
-          id: ["id", "count"],
+          countryCount: ["country", "count"],
         },
       });
     });
@@ -103,7 +109,7 @@ const userschart = {
   barWidth: 50,
   radius: 0,
   layout: "x",
-  value: "#id#",
+  value: "#countryCount#",
   xAxis: {
     template: "#country#",
   },

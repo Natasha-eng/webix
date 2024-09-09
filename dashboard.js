@@ -16,7 +16,7 @@ function filterYear() {
     },
     {
       getValue: function (object) {
-        return object.data.value;
+        return object.getValue();
       },
     }
   );
@@ -154,9 +154,11 @@ const formButtons = [
         .then(
           function () {
             const formId = $$(widgetsIds.filmsFormId);
+            const dataTableId = $$(widgetsIds.filmsTableId);
             webix.message("Confirmed");
             formId.clear();
             formId.clearValidation();
+            dataTableId.clearSelection();
           },
           function () {
             webix.message("Rejected");
