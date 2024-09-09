@@ -15,11 +15,32 @@ function deleteUser(ev, id) {
   return false;
 }
 
+function randomItem(max, min) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function addNewUser() {
+  const userList = $$(widgetsIds.usersListId);
+  const randomAge = randomItem(100, 1);
+  const randomCountryId = randomItem(12, 1);
+
+  const randomCountry = userList.getItem(randomCountryId).country;
+
+  const newUser = {
+    name: "John Smith",
+    age: randomAge,
+    country: randomCountry,
+  }
+
+  userList.add(newUser);
+}
+
 const usersFilterAndSort = {
   cols: [
     {
       view: "text",
       id: widgetsIds.usersInputId,
+      placeholder: "Name Surname, age, country",
       on: {
         onTimedKeyPress: function () {
           let value = this.getValue().toLowerCase();
@@ -41,48 +62,68 @@ const usersFilterAndSort = {
       value: "Sort desc",
       click: sortNameDesc,
     },
+    {
+      view: "button",
+      autowidth: true,
+      value: "Add new",
+      click: addNewUser,
+    },
   ],
 };
 
 const usersList = {
-  view: "list",
+  view: "editlist",
   height: 200,
   id: widgetsIds.usersListId,
+  editable: true,
+  editor: "text",
+  editValue: "name",
   template:
     "<div class='space user-list-style'>#name# from #country# <span class='deleteUser webix_icon wxi-close' ></span></div>",
   select: true,
   url: "./data/users.js",
+  scheme: {
+    $init: function (obj) {
+      if (obj.age < 26) obj.$css = "yellow";
+    },
+  },
   onClick: {
     deleteUser: deleteUser,
   },
   ready: function () {
-    this.data.each(function (obj) {
-      const index = this.getIndexById(obj.id);
-      if (index < 5) {
-        $$(widgetsIds.usersListId).addCss(obj.id, "common");
-      }
+    $$(widgetsIds.chart).sync($$(widgetsIds.usersListId), function () {
+      this.group({
+        by: "country",
+        map: {
+          countryCount: ["country", "count"],
+        },
+      });
     });
   },
 };
 
 const userschart = {
   view: "chart",
+  id: widgetsIds.chart,
   type: "bar",
-  value: "#age#",
   barWidth: 50,
   radius: 0,
   layout: "x",
+  value: "#countryCount#",
   xAxis: {
-    template: "'#age#",
+    template: "#country#",
   },
-  label: "#age#",
+  yAxis: {
+    start: 0,
+    step: 2,
+    end: 10,
+  },
   legend: {
-    values: [{ text: "Age", color: "transparent" }],
+    values: [{ text: "Country", color: "transparent" }],
     valign: "bottom",
     align: "center",
     layout: "x",
   },
-  url: "./data/users.js",
 };
 
 const users = {
@@ -90,5 +131,13 @@ const users = {
   template: "Users View",
   rows: [usersFilterAndSort, usersList, userschart],
 };
+
+webix.protoUI(
+  {
+    name: "editlist",
+  },
+  webix.EditAbility,
+  webix.ui.list
+);
 
 export default users;
