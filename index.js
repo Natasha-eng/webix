@@ -2,6 +2,8 @@ import dashboard from "./dashboard.js";
 import users from "./users.js";
 import products from "./products.js";
 import widgetsIds from "./data_variables.js";
+import admin from "./admin.js"
+import { categoriesCollection, usersCollection } from "./collection.js";
 
 function showPopup() {
   const node = $$(widgetsIds.profileButtonId).getNode();
@@ -55,6 +57,7 @@ const sideBarData = [
   { id: widgetsIds.dashboard, value: widgetsIds.dashboard },
   { id: widgetsIds.users, value: widgetsIds.users },
   { id: widgetsIds.products, value: widgetsIds.products },
+  { id: widgetsIds.admin, value: widgetsIds.admin },
 ];
 
 const sideBar = {
@@ -78,7 +81,8 @@ const connectStatus = {
 };
 
 const switchData = {
-  cells: [dashboard, users, products],
+
+  cells: [dashboard, users, products, admin],
   animate: false,
 };
 
@@ -117,4 +121,20 @@ webix.ready(function () {
     head: false,
     body: profileList,
   });
+
+  $$(widgetsIds.adminTable).sync(categoriesCollection);
+  $$(widgetsIds.chart).sync(usersCollection,
+    function () {
+      this.group({
+        by: "country",
+        map: {
+          countryCount: ["country", "count"],
+        },
+      });
+    }
+  );
+
+  $$(widgetsIds.usersListId).sync(usersCollection);
 });
+
+

@@ -1,7 +1,7 @@
+import { usersCollection } from "./collection.js";
 import widgetsIds from "./data_variables.js";
 
 //users
-
 function sortNameAsc() {
   $$(widgetsIds.usersListId).sort("#name#");
 }
@@ -11,7 +11,7 @@ function sortNameDesc() {
 }
 
 function deleteUser(ev, id) {
-  this.remove(id);
+  usersCollection.remove(id);
   return false;
 }
 
@@ -32,7 +32,7 @@ function addNewUser() {
     country: randomCountry,
   }
 
-  userList.add(newUser);
+  usersCollection.add(newUser, 0);
 }
 
 const usersFilterAndSort = {
@@ -81,7 +81,6 @@ const usersList = {
   template:
     "<div class='space user-list-style'>#name# from #country# <span class='deleteUser webix_icon wxi-close' ></span></div>",
   select: true,
-  url: "./data/users.js",
   scheme: {
     $init: function (obj) {
       if (obj.age < 26) obj.$css = "yellow";
@@ -89,16 +88,6 @@ const usersList = {
   },
   onClick: {
     deleteUser: deleteUser,
-  },
-  ready: function () {
-    $$(widgetsIds.chart).sync($$(widgetsIds.usersListId), function () {
-      this.group({
-        by: "country",
-        map: {
-          countryCount: ["country", "count"],
-        },
-      });
-    });
   },
 };
 
