@@ -32,7 +32,6 @@ const adminTable = {
             },
             hover: "hover-row",
         },
-
     ]
 }
 
@@ -44,10 +43,10 @@ const adminForm = {
         { view: "text", width: 295, id: "title", name: "value", value: "", placeholder: "Category" },
         {
             view: "button", width: 190, value: "Add new category", click: function () {
-                const values = $$(widgetsIds.adminForm).getValues();
+                const adminform = $$(widgetsIds.adminForm);
+                const values = adminform.getValues();
                 categoriesCollection.add(values, 0);
-                $$(widgetsIds.adminForm).clear();
-
+                adminform.clear();
             }
         }
     ],
@@ -62,7 +61,6 @@ const admin = {
         {},
         adminForm
     ]
-
 
 };
 
