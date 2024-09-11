@@ -2,6 +2,8 @@ const widgetsIds = {
   app: "app",
   filmsTableId: "films-table",
   filmsFormId: "films-form",
+  adminTable: "adminTable",
+  adminForm: "adminForm",
   profileButtonId: "profile-button",
   windowId: "mywindow",
   toolbarId: "myToolbar",
@@ -10,6 +12,7 @@ const widgetsIds = {
   dashboard: "Dashboard",
   users: "Users",
   products: "Products",
+  admin: "Admin",
   products_id: "id",
   products_title: "title",
   products_price: "price",
@@ -25,6 +28,7 @@ const widgetsIds = {
   filmTables_rating: "rating",
   filmTables_year: "year",
   chart: "my-chart",
+  admin_category: "value"
 };
 
 export default widgetsIds;

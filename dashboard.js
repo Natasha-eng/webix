@@ -1,3 +1,4 @@
+import { categoriesCollection } from "./collection.js";
 import widgetsIds from "./data_variables.js";
 
 function filterYear() {
@@ -91,7 +92,7 @@ const filmsTable = {
       editable: true,
       width: 100,
 
-      collection: "./data/categories.js",
+      collection: categoriesCollection,
     },
     {
       id: widgetsIds.filmTables_votes,
@@ -199,13 +200,19 @@ const filmsForm = {
       name: widgetsIds.filmTables_rating,
       invalidMessage: "Rating cannot be empty or 0",
     },
+
     {
       view: "text",
       label: "Votes",
       name: widgetsIds.filmTables_votes,
       invalidMessage: "Votes must be less than 100000",
     },
-
+    {
+      view: "richselect",
+      options: categoriesCollection,
+      label: "Category",
+      name: widgetsIds.filmTables_category,
+    },
     {
       cols: formButtons,
     },
